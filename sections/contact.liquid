@@ -1,4 +1,151 @@
-<div class="container">
-  <span>Test Content for contact section</span>
+<div class="contact">
+  <div class="container">
+    <div class="contact__wrapper">    
+      {%- if section.blocks.size > 0 -%}
+        <div class="contact__block-list empty:hidden">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'text' -%}
+                <span>Text block</span>
+
+              {%- when 'select' -%}
+                <span>Select block</span>
+
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
 </div>
 
+{% schema %}
+{
+  "name": "Contact",
+  "class": "shopify-section--contact",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_long_text",
+          "label": "Use long text"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "Dropdown",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "text",
+          "id": "values",
+          "label": "Values",
+          "default": "value 1, value 2, value 3",
+          "info": "Separate each value by a comma."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Subheading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Section Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color"
+    },
+    {
+      "type": "color_background",
+      "id": "heading_gradient",
+      "label": "Heading gradient"
+    },
+    {
+      "type": "header",
+      "content": "Contact Block Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "contact_block_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "contact_block_text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "contact_block_button_background",
+      "label": "Button background"
+    },
+    {
+      "type": "color",
+      "id": "contact_block_button_text",
+      "label": "Button text"
+    }
+  ],
+  "presets": []
+}
+{% endschema %}
