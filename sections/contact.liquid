@@ -1,12 +1,16 @@
 {% liquid 
   assign background = section.settings.background
   assign background_gradient = section.settings.background_gradient
+  assign contact_block_background = section.settings.contact_block_background
+  assign contact_block_text_color = section.settings.contact_block_text_color
+  assign contact_block_button_background = section.settings.contact_block_button_background
+  assign contact_block_button_text = section.settings.contact_block_button_text
 %}
 
 <style>
-  #shopify-section-{{ section.id }} {
-    padding-block-start: var(--spacing-4);
-    padding-block-end: var(--spacing-4);
+  #shopify-section-{{ section.id }} .contact__wrapper {
+    padding-block-start: var(--spacing-8);
+    padding-block-end: var(--spacing-8);
   }
 
   #shopify-section-{{ section.id }} .title {
@@ -24,25 +28,24 @@
     padding-inline-end: var(--spacing-12);
     padding-block-start: var(--spacing-10);
     padding-block-end: var(--spacing-10);
-    background: {{ background }} | 'gray';
     border-radius: 10px
   }
 </style>
   
 <div class="contact" {% render 'section-properties' %}>
-  <div class="container">
-    <div class="contact__wrapper">
+  <div {% render 'surface', class: 'contact__wrapper', background: background, background_gradient: background_gradient %}>
+    <div class="container">
       <h4 class="title">{{ section.settings.title }}</h4>
       <h1 class="description">{{ section.settings.description }}</h1>
 
       {%- form 'contact', class: 'form' -%}
         {%- if section.blocks.size > 0 -%}
-          <div class="contact__block-list empty:hidden contact__form__section">
+          <div {% render 'surface', class: 'contact__form__section', background: contact_block_background, text_color: contact_block_text_color %}>
             {%- for block in section.blocks -%}
               {%- case block.type -%}
                 {%- when 'text' -%}
                   {%- render 'input', name: block.settings.name, label: block.settings.name, required: block.settings.required -%}
-                <br />
+
                 {%- when 'select' -%}
                   {%- assign values = block.settings.values | split: ',' -%}
                   {%- capture select_options -%}
@@ -52,12 +55,14 @@
                   {%- endcapture -%}
                   {%- render 'select', name: block.settings.name, label: block.settings.name , options: select_options -%}
               {%- endcase -%}
+              <br />
             {%- endfor -%}
+
+            <div class="justify-self-start">
+              {%- render 'button', content: 'Send message', type: 'submit', size: 'xl', background: contact_block_button_background, text_color: contact_block_button_text -%}
+            </div>
           </div>
         {%- endif -%}
-        <div class="justify-self-start">
-          {%- render 'button', content: 'Send message', type: 'submit', size: 'xl' -%}
-        </div>
       {%- endform -%}
     </div>
   </div>

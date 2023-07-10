@@ -36,14 +36,14 @@
         "description": "Do you have any questions?",
         "content": "",
         "background": "#00a341",
-        "background_gradient": "",
+        "background_gradient": "linear-gradient(320deg, rgba(56, 78, 197, 1) 16%, rgba(203, 68, 194, 1) 52%, rgba(255, 201, 104, 1) 87%)",
         "text_color": "#5a4183",
-        "heading_color": "",
-        "heading_gradient": "",
-        "contact_block_background": "",
-        "contact_block_text_color": "",
-        "contact_block_button_background": "",
-        "contact_block_button_text": ""
+        "heading_color": "#f9eeee",
+        "heading_gradient": "linear-gradient(180deg, rgba(255, 145, 129, 1), rgba(254, 91, 124, 1) 49%, rgba(255, 140, 162, 1) 100%)",
+        "contact_block_background": "#00a341",
+        "contact_block_text_color": "#f83a3a",
+        "contact_block_button_background": "#803cee",
+        "contact_block_button_text": "#f9eeee"
       }
     }
   },
