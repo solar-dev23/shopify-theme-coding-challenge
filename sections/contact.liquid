@@ -1,20 +1,64 @@
-<div class="contact">
+{% liquid 
+  assign background = section.settings.background
+  assign background_gradient = section.settings.background_gradient
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    padding-block-start: var(--spacing-4);
+    padding-block-end: var(--spacing-4);
+  }
+
+  #shopify-section-{{ section.id }} .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .description {
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .contact__form__section {
+    padding-inline-start: var(--spacing-12);
+    padding-inline-end: var(--spacing-12);
+    padding-block-start: var(--spacing-10);
+    padding-block-end: var(--spacing-10);
+    background: {{ background }} | 'gray';
+    border-radius: 10px
+  }
+</style>
+  
+<div class="contact" {% render 'section-properties' %}>
   <div class="container">
-    <div class="contact__wrapper">    
-      {%- if section.blocks.size > 0 -%}
-        <div class="contact__block-list empty:hidden">
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when 'text' -%}
-                <span>Text block</span>
+    <div class="contact__wrapper">
+      <h4 class="title">{{ section.settings.title }}</h4>
+      <h1 class="description">{{ section.settings.description }}</h1>
 
-              {%- when 'select' -%}
-                <span>Select block</span>
-
-            {%- endcase -%}
-          {%- endfor -%}
+      {%- form 'contact', class: 'form' -%}
+        {%- if section.blocks.size > 0 -%}
+          <div class="contact__block-list empty:hidden contact__form__section">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'text' -%}
+                  {%- render 'input', name: block.settings.name, label: block.settings.name, required: block.settings.required -%}
+                <br />
+                {%- when 'select' -%}
+                  {%- assign values = block.settings.values | split: ',' -%}
+                  {%- capture select_options -%}
+                    {%- for value in values -%}
+                      <option value="{{ value }}">{{ value }}</option>
+                    {%- endfor -%}
+                  {%- endcapture -%}
+                  {%- render 'select', name: block.settings.name, label: block.settings.name , options: select_options -%}
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <div class="justify-self-start">
+          {%- render 'button', content: 'Send message', type: 'submit', size: 'xl' -%}
         </div>
-      {%- endif -%}
+      {%- endform -%}
     </div>
   </div>
 </div>
@@ -78,7 +122,7 @@
       "type": "text",
       "id": "title",
       "label": "Subheading",
-      "default": "Contact Us"
+      "default": "Contact"
     },
     {
       "type": "text",
@@ -146,6 +190,14 @@
       "label": "Button text"
     }
   ],
-  "presets": []
+  "presets": [
+    {
+      "name": "Contact",
+      "settings": {
+        "title": "Contact Us",
+        "description": "Do you have any question?"
+      }
+    }
+  ]
 }
 {% endschema %}
